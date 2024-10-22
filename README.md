@@ -22,38 +22,45 @@ Once deployed, open your Cloudflare Workers dashboard, select the `sveltia-githu
 
 #### GitHub
 
-[Register a new OAuth application](https://github.com/setings/applications/new) on GitHub ([details](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)) with the following properties, including your Worker URL from Step 1:
+[Register a new GitHub application](https://github.com/settings/apps/new) on GitHub ([details](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)) with the following properties, including your Worker URL from Step 1:
 
 - Application name: `Sveltia Github CMS Authenticator` (or whatever)
 - Homepage URL: `https://github.com/reteps/sveltia-github-auth` (or whatever)
 - Application description: (can be left empty)
 - Authorization callback URL: `<YOUR_WORKER_URL>/callback`
+- Ensure 'Setup URL' is blank, and 'Request user authorization (OAuth) during installation' is unchecked
 
 Once registered, click on the **Generate a new client secret** button. The app’s **Client ID** and **Client Secret** will be displayed. We’ll use them in Step 3 below.
 
-#### GitLab
+#### Install GitHub application
 
-[Register a new OAuth application](https://gitlab.com/-/user_settings/applications) on GitLab ([details](https://docs.gitlab.com/ee/integration/oauth_provider.html#create-a-user-owned-application)) with the following properties, including your Worker URL from Step 1:
+Before you can use the authenticator to authorize users, you must install the app on the target repo.
 
-- Name: `Sveltia Github CMS Authenticator` (or whatever)
-- Redirect URI: `<YOUR_WORKER_URL>/callback`
-- Confidential: Yes
-- Scopes: `api` only
+You can navigate to `https://github.com/apps/<app slug>/installations/new` to install it on the repo.
 
-Once registered, the app’s **Application ID** and **Secret** will be displayed. We’ll use them in Step 3 below.
+#### Scope the GitHub access tokens
+
+Optionally, you can scope the user access tokens further. See [This page](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app#using-the-web-application-flow-to-generate-a-user-access-token)
+
+Get the repo id with:
+
+```bash
+gh repo view owner/repo --json id | jq -r .id
+# R_ID
+```
+
+You can then use this with the `GITHUB_REPO_ID` environment variable.
 
 ### Step 3. Configure the Worker
 
 Go back to the `sveltia-github-auth` service page on the Cloudflare dashboard, select **Settings** > **Variables**, and add the following Environment Variables to your worker ([details](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)):
 
-#### GitHub
+#### Environment Variables
 
 - `GITHUB_CLIENT_ID`: **Client ID** from Step 2
 - `GITHUB_CLIENT_SECRET`: **Client Secret** from Step 2; click the **Encrypt** button to hide it
 - `GITHUB_HOSTNAME`: Required only if you’re using GitHub Enterprise Server. Default: `github.com`
-
-#### Other environment variables
-
+- `GITHUB_REPO_ID` (Optional) The ID of the GitHub repo
 - `ALLOWED_DOMAINS`: (Optional) Your site’s hostname, e.g. `www.example.com`
   - Multiple hostnames can be defined as a comma-separated list, e.g. `www.example.com, www.example.org`
   - A wildcard (`*`) can be used to match any subdomain, e.g. `*.example.com` that will match `www.example.com`, `blog.example.com`, `docs.api.example.com`, etc. (but not `example.com`)
@@ -67,13 +74,13 @@ Open `admin/config.yml` locally or remotely, and add your Worker URL from Step 1
 
 ```diff
  backend:
-   name: github # or gitlab
+   name: github
    repo: username/repo
    branch: main
 +  base_url: <YOUR_WORKER_URL>
 ```
 
-Commit the change. Once deployed, you can sign into Sveltia CMS remotely with GitHub or GitLab!
+Commit the change. Once deployed, you can sign into Sveltia CMS remotely with GitHub!
 
 ## FAQ
 

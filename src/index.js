@@ -90,21 +90,16 @@ const handleAuth = async (request, env) => {
 
   if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
     return outputHTML({
-      error: 'OAuth app client ID or secret is not configured.',
+      error: 'GitHub app client ID or secret is not configured.',
       errorCode: 'MISCONFIGURED_CLIENT',
     });
   }
 
-  // client_id: GITHUB_CLIENT_ID,
-  // scope: 'repo,user',
   const params = new URLSearchParams({
     state: csrfToken,
   });
 
-  const appid = 'sveltia-github-app-cloudflare';
-  authURL = `https://github.com/apps/${appid}/installations/new?${params.toString()}`;
-
-  // authURL = `https://${GITHUB_HOSTNAME}/login/oauth/authorize?${params.toString()}`;
+  authURL = `https://${GITHUB_HOSTNAME}/login/oauth/authorize?${params.toString()}`;
 
   // Redirect to the authorization server
   return new Response('', {
@@ -151,6 +146,7 @@ const handleCallback = async (request, env) => {
   const {
     GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET,
+    GITHUB_REPO_ID,
     GITHUB_HOSTNAME = 'github.com',
   } = env;
 
@@ -160,7 +156,7 @@ const handleCallback = async (request, env) => {
   // GitHub
   if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
     return outputHTML({
-      error: 'OAuth app client ID or secret is not configured.',
+      error: 'GitHub app client ID or secret is not configured.',
       errorCode: 'MISCONFIGURED_CLIENT',
     });
   }
@@ -170,6 +166,7 @@ const handleCallback = async (request, env) => {
     code,
     client_id: GITHUB_CLIENT_ID,
     client_secret: GITHUB_CLIENT_SECRET,
+    ...(GITHUB_REPO_ID ? {repository_id: GITHUB_REPO_ID}: {}),
   };
 
   let response;
