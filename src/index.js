@@ -213,13 +213,12 @@ export default {
    * @returns {Promise<Response>} HTTP response.
    * @see https://developers.cloudflare.com/workers/runtime-apis/fetch/
    * @see https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
-   * @see https://docs.gitlab.com/ee/api/oauth2.html#authorization-code-flow
    */
   async fetch(request, env) {
     const { method, url } = request;
     const { pathname } = new URL(url);
 
-    if (method === 'GET' && ['/auth', '/oauth/authorize'].includes(pathname)) {
+    if (method === 'GET' && ['/oauth', '/oauth/authorize'].includes(pathname)) {
       return handleAuth(request, env);
     }
 

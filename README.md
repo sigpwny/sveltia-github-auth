@@ -14,7 +14,7 @@ Sign up with Cloudflare, and click the button below to start deploying.
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/reteps/sveltia-github-auth)
 
-Alternatively, you can clone the project and run [`wrangler deploy`](https://developers.cloudflare.com/workers/wrangler/commands/#deploy) locally.
+Alternatively, you can clone the project and run [`pnpm run deploy`](https://developers.cloudflare.com/workers/wrangler/commands/#deploy) locally.
 
 Once deployed, open your Cloudflare Workers dashboard, select the `sveltia-github-auth` service, then the worker URL (`https://sveltia-github-auth.<SUBDOMAIN>.workers.dev`) will be displayed. Copy it for Step 2. It will also be used in Step 4.
 
@@ -22,7 +22,7 @@ Once deployed, open your Cloudflare Workers dashboard, select the `sveltia-githu
 
 #### GitHub
 
-[Register a new OAuth application](https://github.com/settings/applications/new) on GitHub ([details](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)) with the following properties, including your Worker URL from Step 1:
+[Register a new OAuth application](https://github.com/setings/applications/new) on GitHub ([details](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)) with the following properties, including your Worker URL from Step 1:
 
 - Application name: `Sveltia Github CMS Authenticator` (or whatever)
 - Homepage URL: `https://github.com/reteps/sveltia-github-auth` (or whatever)
