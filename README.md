@@ -21,7 +21,8 @@ If you do it this way, update your `wrangler.toml` to include environment variab
 ```toml
 [vars]
 GITHUB_CLIENT_ID = "Iv23liv25McWF48WFQOB"
-GITHUB_REPO_ID = "R_kgDOH1hjig"
+GITHUB_REPO_ID = "876466748"
+ALLOWED_DOMAINS = "astro-starter-pete.pages.dev"
 ```
 
 and then add your secret with `wrangler secret put GITHUB_CLIENT_SECRET`. Finally, deploy through wrangler.
@@ -55,8 +56,8 @@ Optionally, you can scope the user access tokens further. See [This page](https:
 Get the repo id with:
 
 ```bash
-gh repo view owner/repo --json id | jq -r .id
-# R_ID
+curl -s 'https://api.github.com/repos/<owner>/<repo>' | jq .id
+# 876466748
 ```
 
 You can then use this with the `GITHUB_REPO_ID` environment variable.
