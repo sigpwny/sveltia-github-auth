@@ -1,6 +1,9 @@
-name = "sveltia-github-auth"
+name = "cms-github-auth"
 main = "src/index.js"
 compatibility_date = "2023-03-24"
+routes = [
+	{ pattern = "cms-auth.sigpwny.com", custom_domain = true }
+]
 
 [vars]
 GITHUB_CLIENT_ID = "Iv23liUEcUfEstRLMXhc"
