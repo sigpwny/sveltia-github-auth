@@ -97,6 +97,7 @@ const handleAuth = async (request, env) => {
 
   const params = new URLSearchParams({
     state: csrfToken,
+    client_id: GITHUB_CLIENT_ID
   });
 
   authURL = `https://${GITHUB_HOSTNAME}/login/oauth/authorize?${params.toString()}`;
