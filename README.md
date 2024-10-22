@@ -1,5 +1,13 @@
 # Sveltia Github CMS Authenticator
 
+SIGPwny deployment:
+
+```bash
+wrangler deploy --name cms-github-auth
+```
+
+Then, we have a CNAME alias from `cms-auth.sigpwny.com` to our worker, `cms-github-auth.sigpwny.workers.dev`,
+
 This simple [Cloudflare Workers](https://workers.cloudflare.com/) script allows [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (or Netlify/Decap CMS) users to authenticate through a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps). This is in constrast to authenticating through a oauth app, and allows much more fine-grained repository access.
 
 You don’t have to use it if you previously had Netlify/Decap CMS and your site is still being deployed to Netlify or if you have already used [another 3rd party OAuth client](https://decapcms.org/docs/external-oauth-clients/).

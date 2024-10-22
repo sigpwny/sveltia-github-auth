@@ -2,6 +2,7 @@ name = "sveltia-github-auth"
 main = "src/index.js"
 compatibility_date = "2023-03-24"
 
-# [vars]
-# GITHUB_CLIENT_ID = ""
-# GITHUB_REPO_ID = ""
+[vars]
+GITHUB_CLIENT_ID = "Iv23liUEcUfEstRLMXhc"
+GITHUB_REPO_ID = "525886346"
+ALLOWED_DOMAINS = "sigpwny.com"
