@@ -95,13 +95,16 @@ const handleAuth = async (request, env) => {
     });
   }
 
+  // client_id: GITHUB_CLIENT_ID,
+  // scope: 'repo,user',
   const params = new URLSearchParams({
-    client_id: GITHUB_CLIENT_ID,
-    scope: 'repo,user',
     state: csrfToken,
   });
 
-  authURL = `https://${GITHUB_HOSTNAME}/login/oauth/authorize?${params.toString()}`;
+  const appid = 'sveltia-github-app-cloudflare';
+  authURL = `https://github.com/apps/${appid}/installations/new?${params.toString()}`;
+
+  // authURL = `https://${GITHUB_HOSTNAME}/login/oauth/authorize?${params.toString()}`;
 
   // Redirect to the authorization server
   return new Response('', {
