@@ -16,6 +16,16 @@ Sign up with Cloudflare, and click the button below to start deploying.
 
 Alternatively, you can clone the project and run [`pnpm run deploy`](https://developers.cloudflare.com/workers/wrangler/commands/#deploy) locally.
 
+If you do it this way, update your `wrangler.toml` to include environment variables:
+
+```toml
+[vars]
+GITHUB_CLIENT_ID = "Iv23liv25McWF48WFQOB"
+GITHUB_REPO_ID = "R_kgDOH1hjig"
+```
+
+and then add your secret with `wrangler secret put GITHUB_CLIENT_SECRET`. Finally, deploy through wrangler.
+
 Once deployed, open your Cloudflare Workers dashboard, select the `sveltia-github-auth` service, then the worker URL (`https://sveltia-github-auth.<SUBDOMAIN>.workers.dev`) will be displayed. Copy it for Step 2. It will also be used in Step 4.
 
 ### Step 2. Register the Worker as an OAuth app
