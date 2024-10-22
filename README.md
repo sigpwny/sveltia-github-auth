@@ -39,7 +39,7 @@ Once deployed, open your Cloudflare Workers dashboard, select the `sveltia-githu
 - Homepage URL: `https://github.com/reteps/sveltia-github-auth` (or whatever)
 - Application description: (can be left empty)
 - Authorization callback URL: `<YOUR_WORKER_URL>/callback`
-- Ensure 'Setup URL' is blank, and 'Request user authorization (OAuth) during installation' is unchecked
+- Ensure 'Setup URL' is blank, and 'Request user authorization (OAuth) during installation' is unchecked. Ensure 'expire access token' is unchecked.
 
 Once registered, click on the **Generate a new client secret** button. The app’s **Client ID** and **Client Secret** will be displayed. We’ll use them in Step 3 below.
 
